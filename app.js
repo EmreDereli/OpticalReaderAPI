@@ -4,12 +4,14 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
 const studentRouters = require("./api/routes/students");
+const examsRouters = require("./api/routes/exams");
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/students", studentRouters);
+app.use("/exams", examsRouters);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
