@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "12345678",
-  database: "deneme"
+  database: "deneme",
 });
 
 //get students by id
@@ -17,13 +17,18 @@ router.get("/:studentId", (req, res, next) => {
   const id = req.params.studentId;
   const queryString = "SELECT * FROM students WHERE student_no=?";
   connection.query(queryString, [id], (err, rows, fields) => {
-    const students = rows.map(item => {
-      Students.name = item.name;
-      Students.surname = item.surname;
-      Students.student_no = item.student_no;
-      return Students;
-    });
-    res.json(students);
+    // const students = rows.map(item => {
+    //   Students.name = item.name;
+    //   Students.surname = item.surname;
+    //   Students.student_no = item.student_no;
+    //   return Students;
+    // });
+    const students = {
+      name: rows[0].name,
+      surname: rows[0].surname,
+      studentNo: rows[0].student_no,
+    };
+    res.status(200).json(students);
   });
 });
 
@@ -32,7 +37,7 @@ router.post("/", (req, res, next) => {
   const student = {
     name: req.body.name,
     surname: req.body.surname,
-    student_no: req.body.studentNo
+    student_no: req.body.studentNo,
   };
   const queryString =
     "INSERT INTO students(student_no,name,surname) VALUES(?,?,?)";
