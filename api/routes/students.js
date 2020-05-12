@@ -54,4 +54,23 @@ router.post("/", (req, res, next) => {
   );
 });
 
+router.get("/", (req, res, next) => {
+  const student = {
+    name: req.body.name,
+    surname: req.body.surname,
+    student_no: req.body.studentNo,
+  };
+  const queryString = "SELECT * FROM students";
+  connection.query(queryString, null, (err, rows, fields) => {
+    const students = rows.map((item) => {
+      return {
+        name: item.name,
+        surname: item.surname,
+        no: item.student_no,
+      };
+    });
+    res.json(students);
+  });
+});
+
 module.exports = router;

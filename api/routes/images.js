@@ -44,7 +44,7 @@ router.get("/", (req, res, next) => {
     }
     //listing all files using forEach
     const f = files.map((element) => {
-      return "http://192.168.1.111:3000/uploads/" + element;
+      return "http://192.168.1.111:3000/images/" + element;
     });
 
     res.json(f);
