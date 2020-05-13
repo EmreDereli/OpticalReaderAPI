@@ -15,7 +15,10 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use("/students", studentRouters);
 app.use("/exams", examsRouters);
 app.use("/images", imagesRouters);
-app.use("/answers",answersRouters);
+app.use("/answers", answersRouters);
+app.use("/", (req, res, next) => {
+  res.send("Hello");
+});
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
